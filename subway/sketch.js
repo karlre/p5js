@@ -70,22 +70,6 @@ function Circle(x, y, digit) {
                 stroke(this.circle_color);
                 strokeWeight(scl / 3);
                 line(this.x, this.y, circles[idx].x, circles[idx].y);
-                // switch (i) {
-                //     case 0:
-                //         var cx = 0;
-                //         var cy = 0;
-                //     case 1:
-                //         var cx = -20;
-                //         var cy = 0;
-                //     case 2:
-                //         var cx = 20;
-                //         var cy = 0;
-                //     case 3:
-                //         var cx = 20;
-                //         var cy = 0;
-                // }
-                // bezier(this.x, this.y, this.x + cx, this.y + cy, circles[idx].x, circles[idx].y, circles[idx].x + cx, circles[idx].y + cy);
-
             }
         }
 
