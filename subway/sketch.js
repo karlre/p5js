@@ -3,9 +3,12 @@ var pi = "3141592653589793238462643383279502884197169399375105820974944592307816
 var scl = 10;
 var cols, rows;
 var circles = [];
+var c = 0;
 
 function setup() {
     createCanvas(810, 610);
+    background("#212121");
+
     cols = floor((width / scl) / 2) + 1;
     rows = floor((height / scl) / 2) + 1;
     for (var i = 0; i < cols * rows; i++) {
@@ -14,17 +17,15 @@ function setup() {
         var y = floor(i / cols);
         circles[i] = new Circle(x, y, digit);
     }
+    for (var i = 0; i < cols * rows; i++) {}
 }
 
 function draw() {
-    background("#212121");
-    for (var i = 0; i < cols * rows; i++) {
-        circles[i].checkNeighbors();
+    if (c < cols * rows) {
+        circles[c].checkNeighbors();
+        circles[c].show();
+        c++;
     }
-    for (var i = 0; i < cols * rows; i++) {
-        circles[i].show();
-    }
-    noLoop();
 }
 
 function Circle(x, y, digit) {
@@ -51,9 +52,9 @@ function Circle(x, y, digit) {
     this.checkNeighbors = function() {
         var coords = [
             [1, 0],
-            [-1, -1],
-            [0, -1],
-            [1, -1]
+            [1, 1],
+            [0, 1],
+            [-1, 1]
         ];
         for (var i = 0; i < coords.length; i++) {
             var nx = this.col + coords[i][0];
