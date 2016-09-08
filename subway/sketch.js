@@ -8,7 +8,6 @@ var c = 0;
 function setup() {
     createCanvas(810, 610);
     background("#212121");
-
     cols = floor((width / scl) / 2) + 1;
     rows = floor((height / scl) / 2) + 1;
     for (var i = 0; i < cols * rows; i++) {
@@ -17,12 +16,13 @@ function setup() {
         var y = floor(i / cols);
         circles[i] = new Circle(x, y, digit);
     }
-    for (var i = 0; i < cols * rows; i++) {}
+    for (var i = 0; i < cols * rows; i++) {
+        circles[i].checkNeighbors();
+    }
 }
 
 function draw() {
     if (c < cols * rows) {
-        circles[c].checkNeighbors();
         circles[c].show();
         c++;
     }
@@ -40,12 +40,20 @@ function Circle(x, y, digit) {
     } else {
         this.circle_color = color("#6A70C8");
     }
+    this.neighbors = [];
 
     this.show = function() {
-        if (!this.connected) {
+        if (this.neighbors.length == 0) {
             noStroke();
             fill(this.circle_color);
             ellipse(this.x, this.y, scl, scl);
+        } else {
+            for (var i = 0; i < this.neighbors.length; i++) {
+                this.neighbors[i].connected = true;
+                stroke(this.circle_color);
+                strokeWeight(scl / 4);
+                line(this.x, this.y, this.neighbors[i].x, this.neighbors[i].y);
+            }
         }
     }
 
@@ -65,13 +73,10 @@ function Circle(x, y, digit) {
 
             if (this.circle_color.toString() == circles[nx + ny * cols].circle_color.toString()) {
                 var idx = nx + ny * cols;
+                this.neighbors.push(circles[idx]);
+                circles[idx].neighbors.push(this);
                 this.connected = true;
-                circles[idx].connected = true;
-                stroke(this.circle_color);
-                strokeWeight(scl / 3);
-                line(this.x, this.y, circles[idx].x, circles[idx].y);
             }
         }
-
     }
 }
