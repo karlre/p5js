@@ -61,7 +61,6 @@ function Circle(x, y, digit) {
             noStroke();
             fill(this.circle_color);
             ellipse(this.x, this.y, scl, scl);
-            return undefined;
         } else {
             var r = floor(random(0, this.neighbors.length));
             var neighbor = this.neighbors[r];
