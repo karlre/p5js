@@ -4,6 +4,8 @@ var scl = 10;
 var cols, rows;
 var circles = [];
 var c = 0;
+var current;
+var stack = [];
 
 function setup() {
     createCanvas(810, 610);
@@ -19,12 +21,24 @@ function setup() {
     for (var i = 0; i < cols * rows; i++) {
         circles[i].checkNeighbors();
     }
+    current = circles[0];
 }
 
 function draw() {
-    if (c < cols * rows) {
-        circles[c].show();
+    if (c >= rows * cols - 1) {
+        noLoop();
+    }
+    if (current.barren) {
+        current.show();
+    }
+    if (current.neighbors.length > 0) {
+        stack.push(current);
+        current = current.show();
+    } else if (stack.length > 0) {
+        current = stack.pop();
+    } else {
         c++;
+        current = circles[c];
     }
 }
 
@@ -34,7 +48,7 @@ function Circle(x, y, digit) {
     this.x = x * scl * 2 + scl / 2;
     this.y = y * scl * 2 + scl / 2;
     this.digit = digit;
-    this.connected = false;
+    this.barren = true;
     if (digit == 2 || digit == 3 || digit == 5 || digit == 7) {
         this.circle_color = color("#E2ECC3");
     } else {
@@ -43,17 +57,21 @@ function Circle(x, y, digit) {
     this.neighbors = [];
 
     this.show = function() {
-        if (this.neighbors.length == 0) {
+        if (this.barren) {
             noStroke();
             fill(this.circle_color);
             ellipse(this.x, this.y, scl, scl);
+            return undefined;
         } else {
-            for (var i = 0; i < this.neighbors.length; i++) {
-                this.neighbors[i].connected = true;
-                stroke(this.circle_color);
-                strokeWeight(scl / 4);
-                line(this.x, this.y, this.neighbors[i].x, this.neighbors[i].y);
-            }
+            var r = floor(random(0, this.neighbors.length));
+            var neighbor = this.neighbors[r];
+            stroke(this.circle_color);
+            strokeWeight(scl / 4);
+            line(this.x, this.y, this.neighbors[r].x, this.neighbors[r].y);
+            var neighbor_idx = this.neighbors[r].neighbors.indexOf(this);
+            this.neighbors[r].neighbors.splice(neighbor_idx, 1);
+            this.neighbors.splice(r, 1);
+            return neighbor;
         }
     }
 
@@ -75,7 +93,8 @@ function Circle(x, y, digit) {
                 var idx = nx + ny * cols;
                 this.neighbors.push(circles[idx]);
                 circles[idx].neighbors.push(this);
-                this.connected = true;
+                this.barren = false;
+                circles[idx].barren = false;
             }
         }
     }
