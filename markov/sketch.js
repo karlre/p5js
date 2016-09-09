@@ -15,14 +15,14 @@ function draw() {
 }
 
 function process(corpus) {
-    current = "I am";
+    current = "I am going";
     output = current;
     for (var i = 0; i < 100; i++) {
         var idx = floor(random(corpus[current].length));
         next = corpus[current][idx];
         console.log(next);
         output += " " + next;
-        current = current.split(" ")[1] + " " + next;
+        current = current.split(" ")[1] + " " + current.split(" ")[2] + " " + next;
     }
     output += "!";
     var span = createDiv(output);
