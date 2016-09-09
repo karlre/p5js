@@ -25,20 +25,22 @@ function setup() {
 }
 
 function draw() {
-    if (c >= rows * cols - 1) {
-        noLoop();
-    }
-    if (current.barren) {
-        current.show();
-    }
-    if (current.neighbors.length > 0) {
-        stack.push(current);
-        current = current.show();
-    } else if (stack.length > 0) {
-        current = stack.pop();
-    } else {
-        c++;
-        current = circles[c];
+    for (var i = 0; i < 5; i++) {
+        if (c >= rows * cols - 1) {
+            noLoop();
+        }
+        if (current.barren) {
+            current.show();
+        }
+        if (current.neighbors.length > 0) {
+            stack.push(current);
+            current = current.show();
+        } else if (stack.length > 0) {
+            current = stack.pop();
+        } else {
+            c++;
+            current = circles[c];
+        }
     }
 }
 
