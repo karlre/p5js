@@ -14,8 +14,8 @@ function draw() {
 
 }
 
-function process() {
-    current = corpus["I"];
+function process(corpus) {
+    current = "I";
     output = current;
     for (var i = 0; i < 100; i++) {
         var idx = floor(random(corpus[current].length));
@@ -23,7 +23,8 @@ function process() {
         output += " " + next;
         current = next;
     }
-    createP(output);
+    var span = createDiv(output);
+    span.style("border: 1px solid black; border-radius: 5px; margin-top: 100px; float: left; width: 400px")
     noLoop();
 
 }
