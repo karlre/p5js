@@ -20,7 +20,6 @@ function process(corpus) {
     for (var i = 0; i < 100; i++) {
         var idx = floor(random(corpus[current].length));
         next = corpus[current][idx];
-        console.log(next);
         output += " " + next;
         current = current.split(" ")[1] + " " + current.split(" ")[2] + " " + next;
     }
