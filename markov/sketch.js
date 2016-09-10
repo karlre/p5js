@@ -15,7 +15,8 @@ function draw() {
 }
 
 function process(corpus) {
-    current = "I am going";
+    current = randomStart(corpus);
+    console.log(current);
     output = current;
     for (var i = 0; i < 100; i++) {
         var idx = floor(random(corpus[current].length));
@@ -28,4 +29,9 @@ function process(corpus) {
     span.style("border: 1px solid black; border-radius: 5px; margin-top: 100px; float: left; width: 400px")
     noLoop();
 
+}
+
+function randomStart(corpus) {
+    var keys = Object.keys(corpus);
+    return keys[floor(keys.length * random())];
 }
