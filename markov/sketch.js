@@ -32,5 +32,8 @@ function process(corpus) {
 
 function randomStart(corpus) {
     var keys = Object.keys(corpus);
+    keys = keys.filter(function(el) {
+        return el[0] === el[0].toUpperCase();
+    })
     return keys[floor(keys.length * random())];
 }
