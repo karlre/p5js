@@ -16,7 +16,6 @@ function draw() {
 
 function process(corpus) {
     current = randomStart(corpus);
-    console.log(current);
     output = current;
     for (var i = 0; i < 100; i++) {
         var idx = floor(random(corpus[current].length));
