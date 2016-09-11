@@ -3,7 +3,7 @@ var current;
 var output = "";
 
 function preload() {
-    loadJSON("cap.json", process);
+    loadJSON("cap3.json", process);
 }
 
 function setup() {
@@ -21,7 +21,7 @@ function process(corpus) {
         var idx = floor(random(corpus[current].length));
         next = corpus[current][idx];
         output += " " + next;
-        current = current.split(" ")[1] + " " + current.split(" ")[2] + " " + next;
+        current = current.split(" ")[1] + " " + next;
     }
     output += "!";
     var span = createDiv(output);
