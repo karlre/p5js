@@ -3,7 +3,7 @@ var current;
 var output = "";
 
 function preload() {
-    loadJSON("cap3.json", process);
+    loadJSON("cap.json", process);
 }
 
 function setup() {
