@@ -26,7 +26,7 @@ function setup() {
 
 function draw() {
     for (var i = 0; i < 5; i++) {
-        if (c >= rows * cols - 1) {
+        if (c + i >= rows * cols - 1) {
             noLoop();
         }
         if (current.barren) {
