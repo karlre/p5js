@@ -12,46 +12,6 @@ var physics;
 var wind_dir;
 var wind_speed = 0;
 
-var weather = {
-    "coord": {
-        "lon": -74.01,
-        "lat": 40.71
-    },
-    "weather": [{
-        "id": 802,
-        "main": "Clouds",
-        "description": "scattered clouds",
-        "icon": "03d"
-    }],
-    "base": "stations",
-    "main": {
-        "temp": 20.22,
-        "pressure": 1021.1,
-        "humidity": 50,
-        "temp_min": 18.89,
-        "temp_max": 21.67
-    },
-    "wind": {
-        "speed": 4.71,
-        "deg": 184.502
-    },
-    "clouds": {
-        "all": 32
-    },
-    "dt": 1474907733,
-    "sys": {
-        "type": 3,
-        "id": 1452377816,
-        "message": 0.0043,
-        "country": "US",
-        "sunrise": 1474886923,
-        "sunset": 1474929868
-    },
-    "id": 5128581,
-    "name": "New York",
-    "cod": 200
-};
-
 var person;
 var skin_tones;
 var theta1;
@@ -96,15 +56,15 @@ function draw() {
 }
 
 function getWeather() {
-    var url = "http://api.openweathermap.org/data/2.5/weather?q=" + inp.value() + "&units=metric&APPID=d31f6c099568450a6038675d7b2bbcb7";
+    var url = "https://api.wunderground.com/api/0f3813655fbd4a81/conditions/q/" + inp.value().replace(" ", "+") + ".json";
     loadJSON(url, gotWeather);
 }
 
 function gotWeather(weather) {
-    if (weather.cod == "404") {
+    if (weather.response.error) {
         createP("City not found!")
     } else {
-        wind_dir = weather.wind.deg;
-        wind_speed = weather.wind.speed;
+        wind_dir = weather.current_observation.wind_degrees;
+        wind_speed = weather.current_observation.wind_kph;
     }
 }
