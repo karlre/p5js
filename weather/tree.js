@@ -70,7 +70,7 @@ function Tree() {
     this.update = function() {
         for (var i = 0; i < this.particles.length; i++) {
             var wind = map(wind_speed, 0, 40, 0, 100);
-            this.particles[i].addForce(createVector(random(-wind, wind*2), 0));
+            this.particles[i].addForce(createVector(random(wind), 0));
         }
     }
 }
