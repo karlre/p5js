@@ -2,6 +2,7 @@ var VerletPhysics2D = toxi.physics2d.VerletPhysics2D;
 var GravityBehavior = toxi.physics2d.behaviors.GravityBehavior;
 var AttractionBehavior = toxi.physics2d.behaviors.AttractionBehavior;
 var VerletParticle2D = toxi.physics2d.VerletParticle2D;
+var VerletConstrainedSpring2D = toxi.physics2d.VerletConstrainedSpring2D;
 var VerletSpring2D = toxi.physics2d.VerletSpring2D;
 var AngularConstraint = toxi.physics2d.constraints.AngularConstraint;
 var Vec2D = toxi.geom.Vec2D;
@@ -21,7 +22,8 @@ var button;
 
 function setup() {
     createCanvas(800, 600);
-    inp = createInput('Pick a city!');
+    inp = createInput('Pick a city, for example "New York, NY", "Dallas, TX", "Wellington, New Zealand"!');
+    inp.size(500);
     button = createButton('click me');
     button.mousePressed(getWeather);
     fill(0);
@@ -56,7 +58,11 @@ function draw() {
 }
 
 function getWeather() {
+<<<<<<< HEAD
     var url = "https://api.wunderground.com/api/0f3813655fbd4a81/conditions/q/" + inp.value().replace(" ", "+") + ".json";
+=======
+    var url = "https://api.wunderground.com/api/0f3813655fbd4a81/conditions/q/" + inp.value().replace(" ", "_") + ".json";
+>>>>>>> 5fdba86a22cda05cd0a54c82172b88dc8a7be3d7
     loadJSON(url, gotWeather);
 }
 

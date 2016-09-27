@@ -6,10 +6,11 @@ function Tree() {
 
         this.particles[0].lock();
         this.particles[1] = new Particle(createVector(width / 3, height - 250), this.particles[0], 0);
-        // var secret_trunk_particle = new VerletParticle2D(this.particles[1].pos);
-        // var secret_trunk_spring = new VerletSpring2D(this.particles[1], secret_trunk_particle, 1, 3.2);
+        var secret_trunk_particle = new VerletParticle2D(this.particles[1].pos);
+        secret_trunk_particle.lock();
+        var secret_trunk_spring = new VerletConstrainedSpring2D(this.particles[1], secret_trunk_particle, 10, 1, 200);
         // secret_trunk_spring.lockB();
-        // physics.addSpring(secret_trunk_spring);
+        physics.addSpring(secret_trunk_spring);
         // console.log(secret_trunk_spring);
 
         var spring = new VerletSpring2D(this.particles[0], this.particles[1], 200, 1);
@@ -40,8 +41,9 @@ function Tree() {
         var spring = new VerletSpring2D(this.particles[j], child, dir.mag(), 1);
         physics.addSpring(spring);
         var secret = new VerletParticle2D(child.pos);
-        var spring = new VerletSpring2D(child, secret, 0, 1);
-        spring.lockB();
+        secret.lock();
+        var spring = new VerletSpring2D(child, secret, dir.mag(), 0.005);
+        
         physics.addSpring(spring);
 
     }
@@ -67,7 +69,7 @@ function Tree() {
 
     this.update = function() {
         for (var i = 0; i < this.particles.length; i++) {
-            var wind = map(wind_speed, 0, 40, 0, 5);
+            var wind = map(wind_speed, 0, 40, 0, 100);
             this.particles[i].addForce(createVector(random(wind), 0));
         }
     }
