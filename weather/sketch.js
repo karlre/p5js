@@ -2,6 +2,7 @@ var VerletPhysics2D = toxi.physics2d.VerletPhysics2D;
 var GravityBehavior = toxi.physics2d.behaviors.GravityBehavior;
 var AttractionBehavior = toxi.physics2d.behaviors.AttractionBehavior;
 var VerletParticle2D = toxi.physics2d.VerletParticle2D;
+var VerletConstrainedSpring2D = toxi.physics2d.VerletConstrainedSpring2D;
 var VerletSpring2D = toxi.physics2d.VerletSpring2D;
 var AngularConstraint = toxi.physics2d.constraints.AngularConstraint;
 var Vec2D = toxi.geom.Vec2D;
