@@ -66,7 +66,6 @@ function gotWeather(weather) {
     if (weather.response.error) {
         createP("City not found!")
     } else {
-        console.log(weather);
         wind_dir = weather.current_observation.wind_degrees;
         wind_speed = weather.current_observation.wind_kph;
     }
