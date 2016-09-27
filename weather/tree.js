@@ -6,10 +6,11 @@ function Tree() {
 
         this.particles[0].lock();
         this.particles[1] = new Particle(createVector(width / 3, height - 250), this.particles[0], 0);
-        // var secret_trunk_particle = new VerletParticle2D(this.particles[1].pos);
-        // var secret_trunk_spring = new VerletSpring2D(this.particles[1], secret_trunk_particle, 1, 3.2);
+        var secret_trunk_particle = new VerletParticle2D(this.particles[1].pos);
+        secret_trunk_particle.lock();
+        var secret_trunk_spring = new VerletConstrainedSpring2D(this.particles[1], secret_trunk_particle, 10, 1, 10);
         // secret_trunk_spring.lockB();
-        // physics.addSpring(secret_trunk_spring);
+        physics.addSpring(secret_trunk_spring);
         // console.log(secret_trunk_spring);
 
         var spring = new VerletSpring2D(this.particles[0], this.particles[1], 200, 1);
