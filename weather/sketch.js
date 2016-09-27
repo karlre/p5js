@@ -22,7 +22,8 @@ var button;
 
 function setup() {
     createCanvas(800, 600);
-    inp = createInput('Pick a city!');
+    inp = createInput('Pick a city, for example "New York, NY", "Dallas, TX", "Wellington, New Zealand"!');
+    inp.size(500);
     button = createButton('click me');
     button.mousePressed(getWeather);
     fill(0);
