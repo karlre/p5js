@@ -42,7 +42,7 @@ function Tree() {
         physics.addSpring(spring);
         var secret = new VerletParticle2D(child.pos);
         secret.lock();
-        var spring = new VerletSpring2D(child, secret, 400, 0.005);
+        var spring = new VerletSpring2D(child, secret, dir.mag(), 0.005);
         
         physics.addSpring(spring);
 
@@ -69,7 +69,7 @@ function Tree() {
 
     this.update = function() {
         for (var i = 0; i < this.particles.length; i++) {
-            var wind = map(wind_speed, 0, 40, 0, 5);
+            var wind = map(wind_speed, 0, 40, 0, 200);
             this.particles[i].addForce(createVector(random(wind), 0));
         }
     }
