@@ -69,7 +69,7 @@ function Tree() {
                 var c = noise(i + j);
                 fill(map(c, 0, 1, 0, 60), 100, 100, .5);
                 ellipse(this.particles[i].x, this.particles[i].y, 100, 100);
-                if (random() < 0.0001 * wind_speed) {
+                if (random() < 0.0001 * (1 + wind_speed)) {
                     var leaf = new VerletParticle2D(this.particles[i].x, this.particles[i].y);
                     physics.addParticle(leaf);
                     leaf = leaf.removeAllBehaviors();
