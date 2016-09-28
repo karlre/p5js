@@ -36,7 +36,6 @@ function setup() {
     ]
     person = new Human(random(width / 4, width), height - 200);
     physics = new VerletPhysics2D();
-    physics.addBehavior(new GravityBehavior(new Vec2D(0, -0.5)));
     physics.setWorldBounds(new Rect(0, 0, width, height));
     tree = new Tree();
     tree.growBranches();
@@ -48,6 +47,7 @@ function draw() {
     fill(135, 169, 107);
     ellipse(width / 2, height * 3.5, width * 4, width * 4);
     tree.update();
+    tree.updateLeaves();
     physics.update();
     tree.show();
     person.show();
