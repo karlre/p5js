@@ -19,7 +19,6 @@ function preload() {
     head_img = loadImage("dan.png");
     foot_img = loadImage("foot.png");
     hand_img = loadImage("hand.png");
-    torso_img = loadImage("suit2.png");
     logo_img = loadImage("logo.png");
 }
 
