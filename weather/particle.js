@@ -6,8 +6,6 @@ function Particle(pos, parent, trunk_size) {
     this.finished = false;
     this.pos = pos;
     this.trunk_size = trunk_size;
-    physics.addBehavior(new AttractionBehavior(this, 50, -0.5));
-
 }
 
 Particle.prototype = Object.create(VerletParticle2D.prototype);

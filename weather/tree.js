@@ -1,5 +1,6 @@
 function Tree() {
     this.particles = []
+    this.leaves = [];
     this.growBranches = function() {
         this.particles[0] = new Particle(createVector(width / 3, height - 50), undefined, 0);
         this.particles[0].finished = true;
@@ -37,13 +38,16 @@ function Tree() {
         var child_pos = p5.Vector.add(this.particles[j].pos, dir);
         var child = new Particle(child_pos, this.particles[j], i);
         this.particles.push(child);
+        child.addBehavior(new AttractionBehavior(child, 50, -0.5));
+        child.addBehavior(new GravityBehavior(new Vec2D(0, -0.5)));
+
         this.particles[j].children.push(child);
         var spring = new VerletSpring2D(this.particles[j], child, dir.mag(), 1);
         physics.addSpring(spring);
         var secret = new VerletParticle2D(child.pos);
         secret.lock();
         var spring = new VerletSpring2D(child, secret, dir.mag(), 0.005);
-        
+
         physics.addSpring(spring);
 
     }
@@ -61,8 +65,18 @@ function Tree() {
             }
             if (!this.particles[i].finished) {
                 noStroke();
-                fill(140, 240, 100, 100);
+                colorMode(HSB);
+                var c = noise(i + j);
+                fill(map(c, 0, 1, 0, 60), 100, 100, .5);
                 ellipse(this.particles[i].x, this.particles[i].y, 100, 100);
+                if (random() < 0.0001 * (1 + wind_speed)) {
+                    var leaf = new VerletParticle2D(this.particles[i].x, this.particles[i].y);
+                    physics.addParticle(leaf);
+                    leaf = leaf.removeAllBehaviors();
+                    leaf.addBehavior(new GravityBehavior(new Vec2D(0, 0.05)))
+
+                    this.leaves.push(leaf);
+                }
             }
         }
     }
@@ -72,5 +86,30 @@ function Tree() {
             var wind = map(wind_speed, 0, 40, 0, 100);
             this.particles[i].addForce(createVector(random(wind), 0));
         }
+    }
+
+    this.updateLeaves = function() {
+        for (var i = 0; i < this.leaves.length; i++) {
+            if (this.checkEdges(i)) {
+                physics.removeParticle(this.leaves[i]);
+                this.leaves.splice(i, 1);
+            } else {
+                var c = noise(i);
+                colorMode(HSB);
+                fill(map(c, 0, 1, 0, 60), 100, 100, 0.9);
+                ellipse(this.leaves[i].x, this.leaves[i].y, 10, 6);
+                colorMode(RGB);
+
+                var wind = map(wind_speed, 0, 40, 0, 10);
+                this.leaves[i].addForce(createVector(random(wind), 0));
+            }
+        }
+    }
+
+    this.checkEdges = function(i) {
+        if (this.leaves[i].x >= width || this.leaves[i].x <= 0 || this.leaves[i].y >= height || this.leaves[i].y <= 0) {
+            return true;
+        }
+        return false;
     }
 }
