@@ -221,25 +221,22 @@ function Spring(p1, p2, length, body_part) {
                 push();
                 translate(this.b.x, this.b.y);
                 scale(-1, 1);
-                image(foot_img, 0, 0);
+                image(foot_img, -foot_img.width / 3, 0);
                 pop();
             } else if (this.body_part == "right_hand") {
-                imageMode(CENTER);
+                imageMode(CORNER);
                 push();
                 translate(this.b.x, this.b.y);
-
                 rotate(atan2(this.a.y - this.b.y, this.a.x - this.b.x) - HALF_PI);
                 scale(-1, 1);
-                image(hand_img, 0, -hand_img.height / 2);
+                image(hand_img, -hand_img.width / 3, -hand_img.height);
                 pop();
             } else if (this.body_part == "left_hand") {
-                imageMode(CENTER);
+                imageMode(CORNER);
                 push();
                 translate(this.b.x, this.b.y);
                 rotate(atan2(this.a.y - this.b.y, this.a.x - this.b.x) - HALF_PI);
-
-
-                image(hand_img, 0, -hand_img.height / 2);
+                image(hand_img, -hand_img.width / 2, -hand_img.height);
                 pop();
             }
         }
