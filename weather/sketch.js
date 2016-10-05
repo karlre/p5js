@@ -58,11 +58,7 @@ function draw() {
 }
 
 function getWeather() {
-<<<<<<< HEAD
     var url = "https://api.wunderground.com/api/0f3813655fbd4a81/conditions/q/" + inp.value().replace(" ", "+") + ".json";
-=======
-    var url = "https://api.wunderground.com/api/0f3813655fbd4a81/conditions/q/" + inp.value().replace(" ", "_") + ".json";
->>>>>>> 5fdba86a22cda05cd0a54c82172b88dc8a7be3d7
     loadJSON(url, gotWeather);
 }
 
